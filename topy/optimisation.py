@@ -15,7 +15,7 @@ logger = get_logger(__name__)
 
 __all__ = ['optimise']
 
-def optimise(topology, save=True, dir='./iterations', apikey=''):
+def optimise(topology, save=True, dir='./iterations'):
     # type: (Topology, bool, str) -> None
     if not path.exists(dir):
         makedirs(dir)
@@ -50,16 +50,6 @@ def optimise(topology, save=True, dir='./iterations', apikey=''):
             }
             if save:
                 create_2d_imag(t.desvars, **params)
-        if apikey != 'xxx':
-            headers = {"Authorization": "Bearer " + apikey, "Content-Type": "application/json"}
-            content = {"fields": {"name": t.probname, "iter": t.itercount, \
-                    "objfunc": "%.6e" % t.objfval, "vol": "%.6e" % t.desvars.mean(), \
-                    "p_fac": "%.6e" % t.p, "q_fac": "%.6e" % t.q, \
-                    "ave_eta": "%.6e" % t.eta.mean(), "sv_frac": "%.6e" % t.svtfrac, \
-                    "time": int(round(elapsed * 1000))}, \
-                    "typecast": True}
-            r = requests.post('https://api.airtable.com/v0/appP6FlPzuE3hhNFU/Topo', headers=headers, json=content)
-            logger.info("Post to airtable: " + str(r.status_code))
 
         str_ = '%4i  | %3.6e | %3.3f | %3.4e | %3.3f | %3.3f |  %1.3f  |  %3.3f '
         format_ = (t.itercount, t.objfval, t.desvars.mean(),\

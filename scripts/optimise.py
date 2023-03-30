@@ -8,12 +8,12 @@ from sys import argv
 import topy
 
 
-def optimise(fname, outdir, apikey):
+def optimise(fname, outdir):
     # Set up ToPy:
     t = topy.Topology()
     t.load_tpd_file(fname)
     t.set_top_params()
-    topy.optimise(t, dir=outdir, apikey=apikey)
+    topy.optimise(t, dir=outdir)
 
 
 if __name__ == '__main__':
