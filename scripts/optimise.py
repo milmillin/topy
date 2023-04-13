@@ -17,5 +17,5 @@ def optimise(fname, outdir):
 
 
 if __name__ == '__main__':
-    optimise(argv[1], argv[2], argv[3])
+    optimise(argv[1], argv[2])
 
